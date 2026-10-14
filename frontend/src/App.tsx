@@ -122,7 +122,7 @@ export function App() {
 
       setMessages((prev) => [...prev, agentReply]);
       setIsGenerating(false);
-    }, 700);
+    }, 600);
   };
 
   // Action chip click handler
@@ -131,7 +131,7 @@ export function App() {
       setActiveTab('roadmap');
     } else if (chipText.includes('CV') || chipText.includes('STAR')) {
       setActiveTab('tailor');
-    } else if (chipText.includes('biểu đồ') || chipText.includes('đồ thị')) {
+    } else if (chipText.includes('biểu đồ') || chipText.includes('đồ thị') || chipText.includes('kỹ năng')) {
       setActiveTab('graph');
     } else {
       handleSendMessage(chipText);
@@ -168,7 +168,7 @@ export function App() {
       sender: 'agent',
       agentRole: 'strategist',
       agentName: 'Career Strategist',
-      content: `Đã nạp và đối sánh hồ sơ thành công với vị trí mục tiêu: **${jobTarget.title}** tại **${jobTarget.company}**.\n\n• Độ khớp hiện tại: **${jobTarget.matchScore}%**\n• Mức lương kỳ vọng: **${jobTarget.salaryRange}**\n\nHãy xem các tab Đồ thị Kỹ năng và Lộ trình để bắt đầu chiến lược bứt phá!`,
+      content: `Đã nạp và đối sánh hồ sơ thành công với vị trí mục tiêu: **${jobTarget.title}** tại **${jobTarget.company}**.\n\n• Độ khớp hiện tại: **${jobTarget.matchScore}%**\n• Mức lương kỳ vọng: **${jobTarget.salaryRange}**\n\nHãy xem các tab Bản đồ Kỹ năng và Lộ trình để bắt đầu chiến lược bứt phá!`,
       timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
       cypherTrace: `MATCH (u:UserCV)-[:MATCHES_TARGET_JD]->(j:JobPosting {id: "${jobTarget.id}"}) RETURN j.match_percentage;`,
     };
@@ -177,7 +177,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-[#fafafa] dark:bg-[#09090b] flex flex-col font-sans transition-colors duration-150">
       
       {/* Global Header */}
       <Header
@@ -187,12 +187,13 @@ export function App() {
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
         selectedJobTitle={selectedJob.title}
+        matchScore={selectedJob.matchScore}
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-3 flex flex-col">
         
-        {/* Top KPI Metrics Bar */}
+        {/* Compact Single-line Status Ribbon */}
         <MetricsOverview
           currentJob={selectedJob}
           skills={skills}

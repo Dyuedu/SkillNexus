@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Compass, 
-  FileCheck2, 
   CheckCircle, 
   Circle, 
   Sparkles, 
@@ -55,59 +53,57 @@ export const RoadmapAndTailor: React.FC<RoadmapAndTailorProps> = ({
 
   if (mode === 'roadmap') {
     return (
-      <div className="flex flex-col h-[calc(100vh-140px)] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-card p-6 overflow-y-auto">
+      <div className="flex flex-col h-[calc(100vh-125px)] bg-white dark:bg-[#121215] border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl shadow-subtle p-5 sm:p-6 overflow-y-auto">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-200/60 dark:border-zinc-800/60">
           <div>
-            <div className="flex items-center space-x-2">
-              <Compass className="w-5 h-5 text-blue-600" />
-              <h2 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
-                Lộ Trình Nâng Cấp Kỹ Năng Thích Ứng (30 - 60 - 90 Ngày)
-              </h2>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Được thiết kế dựa trên đồ thị tri thức để lấp đầy chính xác các khoảng cách cốt lõi cho vị trí mục tiêu
+            <h2 className="font-heading font-semibold text-base text-zinc-900 dark:text-zinc-100">
+              Lộ Trình Thích Ứng (30 - 60 - 90 Ngày)
+            </h2>
+            <p className="text-xs text-zinc-500 mt-0.5">
+              Tập trung giải quyết các khoảng cách kỹ năng có trọng số tuyển dụng cao nhất
             </p>
           </div>
 
-          {/* Period Switcher Tabs */}
-          <div className="flex items-center space-x-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+          {/* Period Switcher */}
+          <div className="flex items-center space-x-1 bg-zinc-100 dark:bg-zinc-900 p-1 rounded-lg border border-zinc-200/60 dark:border-zinc-800/60">
             {(['30-days', '60-days', '90-days'] as const).map((period) => (
               <button
                 key={period}
                 onClick={() => setActivePeriod(period)}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold font-mono transition-colors ${
+                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
                   activePeriod === period
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
+                    ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold shadow-sm'
+                    : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400'
                 }`}
               >
-                {period === '30-days' ? '30 Ngày Đầu' : period === '60-days' ? '60 Ngày' : '90 Ngày Về Đích'}
+                {period === '30-days' ? '30 Ngày' : period === '60-days' ? '60 Ngày' : '90 Ngày'}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Milestone Detail Banner */}
-        <div className="mt-6 p-4 rounded-xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900">
-          <div className="flex items-start justify-between">
+        {/* Milestone Goal Summary */}
+        <div className="mt-5 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800/60">
+          <div className="flex items-start justify-between flex-wrap gap-2">
             <div>
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-200 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-bold">
-                Mục tiêu trọng tâm: {activePeriod}
+              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-medium">
+                Mục tiêu giai đoạn:
               </span>
-              <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white mt-1.5">
+              <h3 className="font-heading font-semibold text-sm text-zinc-900 dark:text-zinc-100 mt-1">
                 {currentMilestone.title}
               </h3>
-              <p className="text-xs text-slate-700 dark:text-slate-300 mt-1">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
                 {currentMilestone.goal}
               </p>
             </div>
-            <div className="flex flex-wrap gap-1 max-w-[200px] justify-end">
+            
+            <div className="flex items-center space-x-1">
               {currentMilestone.skillsToClose.map((skill, i) => (
                 <span
                   key={i}
-                  className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200 border border-amber-300 font-bold"
+                  className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-200/60 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-medium"
                 >
                   +{skill}
                 </span>
@@ -117,40 +113,39 @@ export const RoadmapAndTailor: React.FC<RoadmapAndTailorProps> = ({
         </div>
 
         {/* Task Checklist */}
-        <div className="mt-6 space-y-3">
-          <h4 className="text-xs font-heading font-bold uppercase text-slate-500 tracking-wider">
-            Danh sách việc cần làm (Action Items):
+        <div className="mt-6 space-y-2.5">
+          <h4 className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
+            Hành động cụ thể:
           </h4>
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {currentMilestone.tasks.map((task) => (
               <div
                 key={task.id}
                 onClick={() => toggleTask(currentMilestone.period, task.id)}
-                className={`p-3.5 rounded-xl border flex items-start space-x-3 cursor-pointer transition-all ${
+                className={`p-3.5 rounded-lg border flex items-start space-x-3 cursor-pointer transition-colors ${
                   task.completed
-                    ? 'bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-70'
-                    : 'bg-white dark:bg-slate-800/90 border-slate-200 dark:border-slate-700 hover:border-blue-400'
+                    ? 'bg-zinc-50/50 dark:bg-zinc-900/30 border-zinc-200/40 dark:border-zinc-800/40 opacity-60'
+                    : 'bg-white dark:bg-zinc-900/80 border-zinc-200/70 dark:border-zinc-800/70 hover:border-zinc-300 dark:hover:border-zinc-700'
                 }`}
               >
                 <div className="mt-0.5">
                   {task.completed ? (
-                    <CheckCircle className="w-5 h-5 text-emerald-600" />
+                    <CheckCircle className="w-4 h-4 text-emerald-500" />
                   ) : (
-                    <Circle className="w-5 h-5 text-slate-400 hover:text-blue-600" />
+                    <Circle className="w-4 h-4 text-zinc-400" />
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className={`text-xs sm:text-sm font-medium ${task.completed ? 'line-through text-slate-400' : 'text-slate-900 dark:text-slate-100'}`}>
+                  <p className={`text-xs sm:text-sm font-medium ${task.completed ? 'line-through text-zinc-400' : 'text-zinc-900 dark:text-zinc-100'}`}>
                     {task.description}
                   </p>
-                  <div className="flex items-center space-x-2 mt-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center space-x-1">
-                      <BookOpen className="w-3 h-3 text-blue-600" />
+                  <div className="flex items-center space-x-2 mt-1.5 text-[10px] text-zinc-400 font-mono">
+                    <span className="flex items-center space-x-1">
+                      <BookOpen className="w-3 h-3 text-zinc-400" />
                       <span>{task.resourceName}</span>
                     </span>
-                    <span className="text-[10px] uppercase font-mono text-slate-400">
-                      [{task.resourceType}]
-                    </span>
+                    <span>•</span>
+                    <span className="uppercase">[{task.resourceType}]</span>
                   </div>
                 </div>
               </div>
@@ -164,105 +159,87 @@ export const RoadmapAndTailor: React.FC<RoadmapAndTailorProps> = ({
 
   // Resume Tailor View
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-card p-6 overflow-y-auto">
+    <div className="flex flex-col h-[calc(100vh-125px)] bg-white dark:bg-[#121215] border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl shadow-subtle p-5 sm:p-6 overflow-y-auto">
       
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex items-center justify-between pb-4 border-b border-zinc-200/60 dark:border-zinc-800/60">
         <div>
-          <div className="flex items-center space-x-2">
-            <FileCheck2 className="w-5 h-5 text-emerald-600" />
-            <h2 className="font-heading font-bold text-lg text-slate-900 dark:text-white">
-              Bộ Tinh Chỉnh CV Song Song (Split-Screen Resume Tailor)
-            </h2>
-          </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Chuyển hóa mô tả trách nhiệm chung chung thành các gạch đầu dòng chuẩn STAR có định lượng & từ khóa ATS
+          <h2 className="font-heading font-semibold text-base text-zinc-900 dark:text-zinc-100">
+            Tối Ưu Hóa CV Theo Chuẩn STAR
+          </h2>
+          <p className="text-xs text-zinc-500 mt-0.5">
+            Chuyển đổi mô tả trách nhiệm chung chung thành câu định lượng có số liệu và từ khóa ATS
           </p>
         </div>
 
-        <div className="flex items-center space-x-2 text-xs font-mono px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 text-emerald-800 dark:text-emerald-300">
-          <Sparkles className="w-4 h-4 text-emerald-600" />
-          <span>Tăng trung bình +28% điểm khớp ATS</span>
+        <div className="text-xs font-mono text-emerald-600 dark:text-emerald-400 flex items-center space-x-1">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>+28% tỷ lệ qua lọc ATS</span>
         </div>
       </div>
 
       {/* Side-by-Side Diffs */}
-      <div className="mt-6 space-y-6">
+      <div className="mt-5 space-y-4">
         {resumeDiffs.map((diff) => (
-          <div key={diff.id} className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-subtle">
+          <div key={diff.id} className="border border-zinc-200/80 dark:border-zinc-800/80 rounded-xl overflow-hidden">
             
             {/* Section Tag */}
-            <div className="bg-slate-100 dark:bg-slate-800/80 px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-              <span className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+            <div className="bg-zinc-50 dark:bg-zinc-900/60 px-4 py-2 border-b border-zinc-200/60 dark:border-zinc-800/60 flex items-center justify-between text-xs">
+              <span className="font-mono font-medium text-zinc-700 dark:text-zinc-300">
                 {diff.section}
               </span>
-              <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">
+              <span className="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
                 {diff.atsScoreImpact}
               </span>
             </div>
 
-            {/* Split Columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800">
+            {/* Split Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-zinc-200/60 dark:divide-zinc-800/60">
               
               {/* Original Left Pane */}
-              <div className="p-4 bg-slate-50/50 dark:bg-slate-950/40">
-                <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase font-semibold mb-2">
-                  <span>CV Gốc (Chưa tối ưu):</span>
-                  <span className="text-amber-600">Ít số liệu định lượng</span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              <div className="p-4 bg-zinc-50/20 dark:bg-zinc-950/20">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block mb-2">
+                  CV Gốc:
+                </span>
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                   "{diff.original}"
                 </p>
               </div>
 
               {/* Optimized Right Pane */}
-              <div className="p-4 bg-white dark:bg-slate-900">
-                <div className="flex items-center justify-between text-[11px] font-mono text-emerald-600 uppercase font-semibold mb-2">
-                  <span className="flex items-center space-x-1">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Đã viết lại theo chuẩn STAR:</span>
+              <div className="p-4 bg-white dark:bg-zinc-900">
+                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 uppercase tracking-wider mb-2">
+                  <span className="text-blue-600 dark:text-blue-400 font-semibold">
+                    Đã chuẩn hóa STAR:
                   </span>
                   <button
                     onClick={() => handleCopy(diff.id, diff.optimized)}
-                    className="flex items-center space-x-1 text-slate-500 hover:text-blue-600 transition-colors"
+                    className="flex items-center space-x-1 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors normal-case"
                   >
                     {copiedId === diff.id ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <Check className="w-3.5 h-3.5 text-emerald-500" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
                     )}
-                    <span className="normal-case">{copiedId === diff.id ? 'Đã sao chép' : 'Sao chép'}</span>
+                    <span>{copiedId === diff.id ? 'Đã chép' : 'Sao chép'}</span>
                   </button>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-900 dark:text-slate-100 font-semibold leading-relaxed font-sans">
+                <p className="text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 font-medium leading-relaxed">
                   "{diff.optimized}"
                 </p>
 
-                {/* Added keywords badges */}
-                <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                  <div className="text-[11px] font-mono text-slate-400 mb-1.5">
-                    Từ khóa kỹ thuật then chốt bổ sung:
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {diff.addedKeywords.map((kw, i) => (
-                      <span
-                        key={i}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-medium"
-                      >
-                        +{kw}
-                      </span>
-                    ))}
-                  </div>
+                {/* Added Keywords */}
+                <div className="mt-3 flex flex-wrap gap-1">
+                  {diff.addedKeywords.map((kw, i) => (
+                    <span
+                      key={i}
+                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700"
+                    >
+                      +{kw}
+                    </span>
+                  ))}
                 </div>
-
-                {/* STAR Breakdown Drawer */}
-                <div className="mt-3 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 text-[11px] font-mono text-slate-600 dark:text-slate-300 space-y-1">
-                  <div><strong>S (Tình huống):</strong> {diff.starFormula.situation}</div>
-                  <div><strong>A (Hành động):</strong> {diff.starFormula.action}</div>
-                  <div><strong>R (Kết quả):</strong> {diff.starFormula.result}</div>
-                </div>
-
               </div>
 
             </div>

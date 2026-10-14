@@ -4,48 +4,63 @@
 
 @layer base {
   :root {
-    --color-primary: #1E40AF;
-    --color-secondary: #3B82F6;
-    --color-accent: #D97706;
-    --color-background: #F8FAFC;
-    --color-card: #FFFFFF;
-    --color-border: #E2E8F0;
+    --bg-canvas: #fafafa;
+    --bg-surface: #ffffff;
+    --border-subtle: #e4e4e7;
+    --text-primary: #09090b;
+    --text-secondary: #71717a;
+    --accent-blue: #2563eb;
+  }
+
+  .dark {
+    --bg-canvas: #09090b;
+    --bg-surface: #121215;
+    --border-subtle: #27272a;
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --accent-blue: #3b82f6;
   }
 
   body {
-    font-family: 'Fira Sans', system-ui, sans-serif;
-    background-color: var(--color-background);
-    color: #0F172A;
+    font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, .font-heading {
     font-family: 'Fira Code', monospace;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'Fira Code', monospace;
   }
 }
 
-/* Custom Scrollbar for dense technical layout */
+/* Subtle modern scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 3px;
+  background: #d4d4d8;
+  border-radius: 9999px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #3f3f46;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #a1a1aa;
 }
 
-/* Tabular figures for percentages and metrics */
-.tabular-numbers {
+.tabular-nums {
   font-variant-numeric: tabular-nums;
 }

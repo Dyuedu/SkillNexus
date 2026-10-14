@@ -8,35 +8,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#1E40AF', // Navy Blue
-          dark: '#3B82F6',
-          50: '#eff6ff',
-          100: '#dbeafe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+        canvas: {
+          light: '#fafafa',
+          dark: '#09090b',
         },
-        secondary: {
-          DEFAULT: '#3B82F6', // Electric Blue
-          dark: '#60A5FA',
+        surface: {
+          light: '#ffffff',
+          dark: '#121215',
+          darkHover: '#18181b',
         },
-        accent: {
-          DEFAULT: '#D97706', // Amber 600
-          dark: '#F59E0B',
-          50: '#fffbeb',
-          100: '#fef3c7',
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
+        border: {
+          subtleLight: '#e4e4e7',
+          subtleDark: '#27272a',
         },
-        agent: {
-          strategist: '#2563EB', // Royal Blue
-          interviewer: '#D97706', // Amber
-          architect: '#059669',   // Emerald
-          scout: '#7C3AED',       // Purple
+        brand: {
+          DEFAULT: '#2563eb',
+          dark: '#3b82f6',
         },
       },
       fontFamily: {
@@ -44,8 +31,8 @@ export default {
         sans: ['"Fira Sans"', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        subtle: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
-        card: '0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04)',
+        subtle: '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        elevated: '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03)',
       },
     },
   },

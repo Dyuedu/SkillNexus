@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, CheckCircle2, AlertTriangle, TrendingUp } from 'lucide-react';
+import { Target, CheckCircle2, AlertCircle, ArrowUpRight } from 'lucide-react';
 import type { JobTarget, SkillNode } from '../types';
 
 interface MetricsOverviewProps {
@@ -14,88 +14,65 @@ export const MetricsOverview: React.FC<MetricsOverviewProps> = ({
   onOpenIngest,
 }) => {
   const masteredCount = skills.filter((s) => s.status === 'mastered').length;
-  const gapCount = skills.filter((s) => s.status === 'gap').length;
+  const gapSkills = skills.filter((s) => s.status === 'gap');
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+    <div className="w-full mb-3 flex items-center justify-between text-xs py-2 px-3 rounded-lg bg-zinc-100/60 dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/60 text-zinc-600 dark:text-zinc-400">
       
-      {/* KPI 1: Target Match Score */}
-      <div 
-        onClick={onOpenIngest}
-        className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-subtle hover:border-blue-500 cursor-pointer transition-colors"
-      >
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-medium">Độ khớp Mục tiêu</span>
-          <Target className="w-4 h-4 text-blue-600" />
-        </div>
-        <div className="mt-1 flex items-baseline space-x-2">
-          <span className="font-heading font-bold text-2xl text-slate-900 dark:text-white tabular-numbers">
+      {/* Left: Summary Metrics */}
+      <div className="flex items-center space-x-4 flex-wrap gap-y-1">
+        
+        {/* Match Score */}
+        <div className="flex items-center space-x-1.5">
+          <Target className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+          <span>Độ khớp:</span>
+          <span className="font-mono font-bold text-zinc-900 dark:text-zinc-100 tabular-nums">
             {currentJob.matchScore}%
           </span>
-          <span className="text-[11px] font-mono text-emerald-600 font-semibold">
-            +17% sau tối ưu
+          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
+            (+17% sau tối ưu)
           </span>
         </div>
-        <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
-          <div
-            className="bg-blue-600 h-1.5 rounded-full"
-            style={{ width: `${currentJob.matchScore}%` }}
-          ></div>
+
+        <div className="h-3 w-[1px] bg-zinc-200 dark:bg-zinc-800 hidden sm:block"></div>
+
+        {/* Mastered Skills Count */}
+        <div className="hidden sm:flex items-center space-x-1.5">
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+          <span>Đã có:</span>
+          <span className="font-mono font-semibold text-zinc-900 dark:text-zinc-100 tabular-nums">
+            {masteredCount}/{skills.length} kỹ năng
+          </span>
         </div>
+
+        <div className="h-3 w-[1px] bg-zinc-200 dark:bg-zinc-800 hidden md:block"></div>
+
+        {/* Core Gaps */}
+        <div className="flex items-center space-x-1.5">
+          <AlertCircle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+          <span>Thiếu trọng yếu:</span>
+          <div className="flex items-center space-x-1">
+            {gapSkills.slice(0, 3).map((s) => (
+              <span
+                key={s.id}
+                className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 font-medium"
+              >
+                {s.name}
+              </span>
+            ))}
+          </div>
+        </div>
+
       </div>
 
-      {/* KPI 2: Mastered Skills */}
-      <div className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-subtle">
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-medium">Kỹ năng Đã có</span>
-          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-        </div>
-        <div className="mt-1 flex items-baseline space-x-2">
-          <span className="font-heading font-bold text-2xl text-emerald-600 dark:text-emerald-400 tabular-numbers">
-            {masteredCount}
-          </span>
-          <span className="text-[11px] text-slate-500 font-mono">/ {skills.length} chuẩn hóa</span>
-        </div>
-        <p className="text-[11px] text-slate-500 truncate mt-1">
-          Java, Spring Boot, MySQL...
-        </p>
-      </div>
-
-      {/* KPI 3: Critical Gaps */}
-      <div className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-subtle">
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-medium">Khoảng cách Trọng yếu</span>
-          <AlertTriangle className="w-4 h-4 text-amber-600" />
-        </div>
-        <div className="mt-1 flex items-baseline space-x-2">
-          <span className="font-heading font-bold text-2xl text-amber-600 dark:text-amber-400 tabular-numbers">
-            {gapCount}
-          </span>
-          <span className="text-[11px] text-amber-700 dark:text-amber-300 font-mono font-semibold">
-            Cần giải quyết gấp
-          </span>
-        </div>
-        <p className="text-[11px] text-amber-600 truncate mt-1 font-mono font-medium">
-          Docker, Redis, Kafka
-        </p>
-      </div>
-
-      {/* KPI 4: Salary Delta */}
-      <div className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-subtle">
-        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <span className="font-medium">Tiềm năng Mức lương</span>
-          <TrendingUp className="w-4 h-4 text-purple-600" />
-        </div>
-        <div className="mt-1 flex items-baseline space-x-1">
-          <span className="font-heading font-bold text-xl text-slate-900 dark:text-white tabular-numbers">
-            18 - 28M
-          </span>
-          <span className="text-[11px] text-slate-500 font-mono">VNĐ/tháng</span>
-        </div>
-        <p className="text-[11px] text-emerald-600 dark:text-emerald-400 truncate mt-1 font-medium">
-          Tăng ~35% khi có Redis & CI/CD
-        </p>
-      </div>
+      {/* Right: Quick Ingestion Trigger */}
+      <button
+        onClick={onOpenIngest}
+        className="hidden md:flex items-center space-x-1 text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
+      >
+        <span>Chi tiết đối sánh</span>
+        <ArrowUpRight className="w-3.5 h-3.5" />
+      </button>
 
     </div>
   );

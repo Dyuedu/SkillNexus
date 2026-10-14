@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #1E40AF;
+    --color-secondary: #3B82F6;
+    --color-accent: #D97706;
+    --color-background: #F8FAFC;
+    --color-card: #FFFFFF;
+    --color-border: #E2E8F0;
+  }
+
+  body {
+    font-family: 'Fira Sans', system-ui, sans-serif;
+    background-color: var(--color-background);
+    color: #0F172A;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Fira Code', monospace;
+  }
+}
+
+/* Custom Scrollbar for dense technical layout */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Tabular figures for percentages and metrics */
+.tabular-numbers {
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,178 @@
+# ==============================================================================
+# SkillNexus - Git Ignore Configuration
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Environment Variables & Secrets (CRITICAL: Do NOT commit secrets)
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!*.env.example
+!.env.example
+
+# ------------------------------------------------------------------------------
+# 2. Python & Virtual Environments
+# ------------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.c
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.pyo
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Linters & Type Checking
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ------------------------------------------------------------------------------
+# 3. Node.js & Frontend (React / Vite / Next.js)
+# ------------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.npm/
+
+# Build artifacts
+.next/
+out/
+dist/
+.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------------------------------------------
+# 4. Databases, Local Storage & Large Artifacts
+# ------------------------------------------------------------------------------
+data/
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+local_storage/
+volumes/
+neo4j/data/
+neo4j/logs/
+postgres_data/
+redis_data/
+minio_data/
+
+# ------------------------------------------------------------------------------
+# 5. OS & IDE Specific
+# ------------------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Editors (VSCode, JetBrains, Vim)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.user
+*.swp
+*.swo
+*~
+
+# ------------------------------------------------------------------------------
+# 6. BMad & Agent Customizations (Personal Overrides)
+# ------------------------------------------------------------------------------
+*.user.toml
+_bmad/custom/*.user.toml
+_bmad/render/
+
+# ------------------------------------------------------------------------------
+# 7. Temporary & Log Files
+# ------------------------------------------------------------------------------
+*.log
+logs/
+tmp/
+temp/

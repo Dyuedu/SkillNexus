@@ -1,0 +1,157 @@
+# Breakdown of Epics and Stories for SkillNexus (Agentic Multi-Agent Edition)
+
+[[epic]]
+id = "EPIC-1"
+title = "Core Data Pipeline & Relational Store"
+covers = ["AD-1", "FR-101"]
+status = "in-progress"
+
+[[epic.story]]
+id = "STORY-101"
+title = "Khởi tạo Docker Compose môi trường hạ tầng (Postgres, MinIO, Redis)"
+covers = ["AD-1"]
+after = []
+verification = "Đã hoàn thành. Docker compose và .env đã sẵn sàng."
+
+[[epic.story]]
+id = "STORY-102"
+title = "Triển khai PostgreSQL DDL Migration (Alembic / SQL scripts)"
+covers = ["AD-1"]
+after = ["STORY-101"]
+verification = "Đã hoàn thành. File init-postgres.sql đã tạo với 7 bảng và seed kỹ năng."
+
+[[epic.story]]
+id = "STORY-103"
+title = "Xây dựng Loader nạp dữ liệu mở VietJobs (48k JDs Bootstrap)"
+covers = ["AD-1"]
+after = ["STORY-102"]
+verification = "Đã hoàn thành. Module vietjobs_loader.py đã test pass 100%."
+
+---
+
+[[epic]]
+id = "EPIC-2"
+title = "Knowledge Graph & Ontology Engine (Neo4j)"
+covers = ["AD-3", "AD-4"]
+status = "in-progress"
+after = ["EPIC-1"]
+
+[[epic.story]]
+id = "STORY-201"
+title = "Khởi tạo Neo4j Container & Cấu hình Cypher Constraints / Vector Indexes"
+covers = ["AD-3"]
+after = ["STORY-101"]
+verification = "Đã hoàn thành. File init-neo4j.cypher cấu hình vector 768 dims và constraints."
+
+[[epic.story]]
+id = "STORY-202"
+title = "Triển khai Normalizer Chuẩn hóa Thực thể Kỹ năng (ESCO / O*NET)"
+covers = ["AD-4"]
+after = ["STORY-201"]
+verification = "Đã hoàn thành. Module normalizer.py đã test pass 100%."
+
+---
+
+[[epic]]
+id = "EPIC-3"
+title = "CV Ingestion & Local Parsing Service"
+covers = ["FR-101", "FR-105", "NFR-103"]
+status = "planned"
+after = ["EPIC-1", "EPIC-2"]
+
+[[epic.story]]
+id = "STORY-301"
+title = "FastAPI Endpoint Upload CV (PDF/DOCX) & Tích hợp Ollama Parser"
+covers = ["FR-101", "NFR-101"]
+after = ["STORY-102"]
+verification = "Tải file CV lên, Ollama qwen2.5-coder:7b bóc tách đúng JSON cấu trúc."
+
+[[epic.story]]
+id = "STORY-302"
+title = "Triển khai Cơ chế Bảo vệ Dữ liệu PDPL 2026 (Anonymous Mode & Hard Delete)"
+covers = ["FR-105", "NFR-103"]
+after = ["STORY-301"]
+verification = "Bật anonymous mode xác nhận PII bị xóa hoàn toàn khỏi DB và memory."
+
+---
+
+[[epic]]
+id = "EPIC-4"
+title = "Market Scout Agent & Neo4j Tools"
+covers = ["FR-201", "FR-202", "FR-203", "NFR-102"]
+status = "planned"
+after = ["EPIC-2"]
+
+[[epic.story]]
+id = "STORY-401"
+title = "Xây dựng Bộ Tool Function Calling truy vấn Cypher trên Neo4j"
+covers = ["FR-201", "FR-202"]
+after = ["STORY-201"]
+verification = "Tool query_skill_gaps và get_salary_benchmarks trả về đúng cấu trúc JSON cho Agent."
+
+[[epic.story]]
+id = "STORY-402"
+title = "Triển khai Market Scout Agent tích hợp Function Calling qua Ollama"
+covers = ["FR-203", "NFR-102"]
+after = ["STORY-401"]
+verification = "Qwen-2.5-Coder:7b tự động gọi tool Cypher và tổng hợp báo cáo khoảng trống kỹ năng."
+
+---
+
+[[epic]]
+id = "EPIC-5"
+title = "Autonomous Multi-Agent Advisory Core (LangGraph)"
+covers = ["FR-101", "FR-102", "FR-301", "FR-302", "FR-401", "FR-501"]
+status = "planned"
+after = ["EPIC-3", "EPIC-4"]
+
+[[epic.story]]
+id = "STORY-501"
+title = "Thiết kế LangGraph StateGraph & Supervisor Router Node"
+covers = ["FR-101", "FR-102"]
+after = ["STORY-402"]
+verification = "StateGraph quản lý chuyển đổi trạng thái giữa các Agent mượt mà, lưu history vào Redis/Postgres."
+
+[[epic.story]]
+id = "STORY-502"
+title = "Triển khai Tech Lead Interviewer Agent (Skill Verification Loop)"
+covers = ["FR-301", "FR-302"]
+after = ["STORY-501"]
+verification = "Agent sinh 2-3 câu hỏi phỏng vấn kỹ thuật, chấm điểm câu trả lời của ứng viên 1-10."
+
+[[epic.story]]
+id = "STORY-503"
+title = "Triển khai Career Strategist Agent (Adaptive 30-60-90 Roadmap)"
+covers = ["FR-401"]
+after = ["STORY-501"]
+verification = "Agent sinh lộ trình 30-60-90 ngày có bài toán Capstone Project dựa trên dữ liệu từ Market Scout."
+
+[[epic.story]]
+id = "STORY-504"
+title = "Triển khai Resume Architect Agent (STAR / XYZ ATS Tailoring)"
+covers = ["FR-501", "FR-502"]
+after = ["STORY-501"]
+verification = "Agent phân tích đạn CV và viết lại theo công thức Action + Context + Measurable Result."
+
+---
+
+[[epic]]
+id = "EPIC-6"
+title = "Agentic Web Client Experience"
+covers = ["FR-101", "FR-202"]
+status = "planned"
+after = ["EPIC-5"]
+
+[[epic.story]]
+id = "STORY-601"
+title = "Giao diện Chat Đa Tác tử (Interactive Advisory Board) trên Next.js 14"
+covers = ["FR-101"]
+after = ["STORY-501"]
+verification = "Giao diện chat trực quan hiển thị từng avatar của Tech Lead, Career Strategist, Resume Architect."
+
+[[epic.story]]
+id = "STORY-602"
+title = "Màn hình Trực quan hóa Skill Radar & So sánh CV Split-Screen"
+covers = ["FR-202"]
+after = ["STORY-601"]
+verification = "Ứng viên xem song song radar kỹ năng, bài chấm điểm của Tech Lead và bản CV được tối ưu."

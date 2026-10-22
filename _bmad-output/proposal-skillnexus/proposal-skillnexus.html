@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkillNexus Project Proposal</title>
+<meta name="description" content="Final project proposal: SkillNexus, a provenance-first IT career intelligence platform for Vietnamese developers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1E40AF;
+    --primary-soft: #DBEAFE;
+    --secondary: #3B82F6;
+    --accent: #D97706;
+    --accent-soft: #FEF3C7;
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --fg: #0F172A;
+    --muted: #F1F5F9;
+    --muted-fg: #475569;
+    --border: #E2E8F0;
+    --danger: #DC2626;
+    --danger-soft: #FEE2E2;
+    --m1: #1E40AF;   /* Data Engineer */
+    --m2: #7C3AED;   /* Data Scientist & KG */
+    --m3: #059669;   /* Applied AI & Full-stack */
+    --all: #D97706;
+    --radius: 8px;
+    --font-sans: "Fira Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-mono: "Fira Code", ui-monospace, "Cascadia Code", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: var(--font-sans); font-size: 14.5px; line-height: 1.55;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .doc { max-width: 920px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1, h2, h3, h4 { font-family: var(--font-mono); line-height: 1.25; margin: 0; }
+  h2 { font-size: 21px; color: var(--primary); margin: 0 0 14px; display: flex; gap: 10px; align-items: baseline; }
+  h2 .num { color: var(--accent); font-size: 15px; }
+  h3 { font-size: 15.5px; margin: 18px 0 8px; }
+  p { margin: 0 0 10px; }
+  ul, ol { margin: 0 0 10px; padding-left: 20px; }
+  li { margin: 3px 0; }
+  a { color: var(--primary); }
+  code { font-family: var(--font-mono); font-size: 0.86em; background: var(--muted); padding: 1px 5px; border-radius: 4px; }
+  .muted { color: var(--muted-fg); }
+  .small { font-size: 12.5px; }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px; margin: 0 0 18px; }
+
+  /* Cover */
+  .cover { background: var(--primary); color: #fff; border: none; padding: 40px 34px; }
+  .cover .eyebrow { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+  .cover h1 { font-size: 40px; margin: 10px 0 6px; }
+  .cover .tagline { font-size: 18px; opacity: .95; margin-bottom: 22px; max-width: 640px; }
+  .cover .chain { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 26px; }
+  .cover .chain span.step { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 5px 12px; font-family: var(--font-mono); font-size: 13px; }
+  .cover .chain span.arrow { opacity: .8; }
+  .cover dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 18px; margin: 0; font-size: 13.5px; }
+  .cover dt { opacity: .75; }
+  .cover dd { margin: 0; }
+
+  /* Stat tiles */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 6px 0 14px; }
+  .stat { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; background: var(--bg); }
+  .stat .v { font-family: var(--font-mono); font-size: 26px; font-weight: 700; color: var(--primary); }
+  .stat .v.warn { color: var(--accent); }
+  .stat .l { font-size: 13px; margin-top: 2px; }
+  .stat .s { font-size: 11.5px; color: var(--muted-fg); margin-top: 6px; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 6px 0 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { border-bottom: 1px solid var(--border); padding: 7px 8px; text-align: left; vertical-align: top; }
+  th { background: var(--muted); font-weight: 600; font-size: 12.5px; }
+  tr { break-inside: avoid; }
+  td.c, th.c { text-align: center; }
+  .yes { color: var(--m3); font-weight: 700; }
+  .part { color: var(--accent); font-weight: 700; }
+  .no { color: #94A3B8; }
+
+  /* Pills & callouts */
+  .pill { display: inline-block; border-radius: 999px; padding: 1px 9px; font-size: 11.5px; font-weight: 600; font-family: var(--font-mono); white-space: nowrap; }
+  .p-core { background: var(--primary-soft); color: var(--primary); }
+  .p-stretch { background: var(--accent-soft); color: #92400E; }
+  .p-out { background: var(--muted); color: var(--muted-fg); }
+  .p-m1 { background: #DBEAFE; color: var(--m1); }
+  .p-m2 { background: #EDE9FE; color: var(--m2); }
+  .p-m3 { background: #D1FAE5; color: #047857; }
+  .callout { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; margin: 10px 0 12px; font-size: 13.5px; }
+  .callout.blue { border-color: var(--primary); background: var(--primary-soft); }
+  .callout.red { border-color: var(--danger); background: var(--danger-soft); }
+
+  /* Modules */
+  .modules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 8px 0 14px; }
+  .module { border: 1px solid var(--border); border-top: 4px solid var(--primary); border-radius: var(--radius); padding: 12px; background: var(--bg); }
+  .module h4 { font-size: 13.5px; margin-bottom: 4px; }
+  .module .q { font-size: 12.5px; color: var(--muted-fg); font-style: italic; margin-bottom: 8px; }
+  .module ul { padding-left: 16px; font-size: 12.5px; margin: 0; }
+  .module:nth-child(2) { border-top-color: var(--m2); }
+  .module:nth-child(3) { border-top-color: var(--m3); }
+  .module:nth-child(4) { border-top-color: var(--accent); }
+
+  /* Architecture diagram */
+  .arch { display: grid; gap: 6px; margin: 8px 0 14px; }
+  .tier { border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; background: var(--bg); }
+  .tier .t { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted-fg); margin-bottom: 7px; }
+  .boxes { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .box { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 5px 9px; font-size: 12.5px; }
+  .box b { font-family: var(--font-mono); font-size: 12px; }
+  .box.db { border-color: var(--primary); }
+  .box.ai { border-color: var(--m3); }
+  .box.ui { border-color: var(--accent); }
+  .flow { color: var(--muted-fg); font-size: 13px; }
+  .down { text-align: center; color: var(--muted-fg); font-size: 15px; line-height: 1; }
+
+  /* Gantt */
+  .gantt { display: grid; grid-template-columns: 220px repeat(8, 1fr); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 12px; margin: 8px 0 12px; }
+  .gantt > div { border-bottom: 1px solid var(--border); padding: 5px 6px; min-height: 28px; }
+  .g-head { background: var(--muted); font-weight: 600; text-align: center; font-size: 11.5px; }
+  .g-head .d { display: block; font-weight: 400; color: var(--muted-fg); font-size: 10.5px; }
+  .g-label { background: var(--card); border-right: 1px solid var(--border); }
+  .g-label .who { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; }
+  .g-bar { margin: 3px 2px; border-radius: 5px; color: #fff; font-size: 11px; padding: 4px 7px; align-self: center; line-height: 1.25; }
+  .gantt > div.g-bar { border-bottom: 0; padding: 4px 7px; }
+  .g-m1 { background: var(--m1); } .g-m2 { background: var(--m2); } .g-m3 { background: var(--m3); } .g-all { background: var(--all); }
+  .g-ms { text-align: center; font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent); align-self: center; }
+  .g-sec { grid-column: 1 / -1; background: var(--muted); font-family: var(--font-mono); font-size: 11px; font-weight: 700; padding: 4px 8px !important; min-height: 0 !important; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .refs li { font-size: 12.5px; word-break: break-word; }
+  footer { text-align: center; color: var(--muted-fg); font-size: 12px; margin-top: 18px; }
+
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .modules { grid-template-columns: 1fr 1fr; }
+    .two { grid-template-columns: 1fr; }
+    .gantt { grid-template-columns: 130px repeat(8, minmax(44px, 1fr)); overflow-x: auto; }
+    .cover h1 { font-size: 32px; }
+    section { padding: 18px 16px; }
+  }
+  @media (max-width: 480px) { .modules { grid-template-columns: 1fr; } }
+
+  @page { size: A4; margin: 14mm 12mm 14mm 12mm; }
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .doc { max-width: none; padding: 0; }
+    section { border: none; padding: 0 0 6px; margin: 0 0 14px; border-radius: 0; }
+    .cover { padding: 34px 30px; border-radius: 8px; margin-bottom: 18px; }
+    .pb { break-before: page; }
+    h2 { break-after: avoid; }
+    .stat, .module, .tier, .callout, .gantt { break-inside: avoid; }
+    a { color: var(--fg); text-decoration: none; }
+    .table-wrap { overflow: visible; }
+    .stat .v { font-size: 22px; }
+    .gantt { grid-template-columns: 205px repeat(8, 1fr); font-size: 10px; }
+    .gantt > div { min-height: 0; padding: 3px 5px; }
+    .gantt > div.g-bar { font-size: 9.5px; padding: 2px 5px; margin: 2px 1px; }
+    .g-head .d { font-size: 9.5px; }
+  }
+</style>
+</head>
+<body>
+<main class="doc">
+
+<!-- ───────────── COVER ───────────── -->
+<section class="cover">
+  <div class="eyebrow">Final Project Proposal · Data Engineering × Applied AI</div>
+  <h1>SkillNexus</h1>
+  <div class="tagline">Career intelligence for Vietnamese IT job seekers. Every answer comes from real market data, and every number shows its source.</div>
+  <div class="chain">
+    <span class="step">Market truth</span><span class="arrow">→</span>
+    <span class="step">My gap</span><span class="arrow">→</span>
+    <span class="step">My plan</span><span class="arrow">→</span>
+    <span class="step">My CV</span>
+  </div>
+  <dl>
+    <dt>Team</dt><dd>[Name] Data Engineer · [Name] Data Scientist &amp; Knowledge Graph · [Name] Applied AI &amp; Full-stack</dd>
+    <dt>Mentor</dt><dd>[Name]</dd>
+    <dt>Duration</dt><dd>8 weeks · tentatively 26 Oct – 20 Dec 2026</dd>
+    <dt>Version</dt><dd>Draft 1 · 22 Oct 2026</dd>
+  </dl>
+</section>
+
+<!-- ───────────── 1. EXECUTIVE SUMMARY ───────────── -->
+<section>
+  <h2><span class="num">01</span> Executive summary</h2>
+  <p>Vietnamese IT job seekers decide what to learn, what to ask for and how to write their CV with little real evidence. Job posts are inflated and often hide the salary, and the market reports come out once a year as PDFs. AI CV tools rewrite text against generic standards, not against what Vietnamese employers actually ask for.</p>
+  <p><b>SkillNexus</b> is a data platform plus an AI layer. A daily pipeline collects and normalizes Vietnamese IT job data, annual salary reports and open datasets into a warehouse where <b>every figure carries its source, period and sample size</b>. On top of that, local LLM workflows tell a user:</p>
+  <ul>
+    <li>which skills the market wants for their target role;</li>
+    <li>what those skills are worth;</li>
+    <li>how much of the demand their CV already covers;</li>
+    <li>what to learn next, in what order, within their weekly time;</li>
+    <li>how to tailor their CV to a specific job post <b>without inventing experience</b>.</li>
+  </ul>
+  <p>The project is designed to teach a complete <b>data engineering</b> workflow (Airflow, a medallion warehouse, dbt, a graph projection), real <b>data science</b> (co-occurrence analysis, a job-post inflation index, salary-premium regression, trend momentum), and <b>applied AI</b> (LLM-in-ETL extraction, a guarded agent workflow, a tool-using market analyst with evaluation sets). It still addresses a problem people would pay to solve.</p>
+</section>
+
+<!-- ───────────── 2. PROBLEM ───────────── -->
+<section class="pb">
+  <h2><span class="num">02</span> Problem statement</h2>
+  <p>We profiled the 794 software and data job posts in <b>VietJobs</b>, an open dataset of 48,092 Vietnamese job ads collected from TopCV in July 2025 (LREC 2026). The results match the complaints developers repeat in community groups.</p>
+  <div class="stats">
+    <div class="stat"><div class="v warn">9.4%</div><div class="l">of software/data posts accept candidates with <b>under 1 year</b> of experience</div><div class="s">VietJobs dev subset, n = 794 · our analysis</div></div>
+    <div class="stat"><div class="v warn">74.8%</div><div class="l">require <b>2+ years</b> of experience</div><div class="s">Same subset · "Senior-ized Fresher" effect</div></div>
+    <div class="stat"><div class="v warn">56.9%</div><div class="l">hide the salary ("Thỏa thuận" / 0)</div><div class="s">Same subset; 28.5% across all sectors (paper)</div></div>
+    <div class="stat"><div class="v">4.4×</div><div class="l">Back-end median salary from &lt; 1 yr (12.4M VND) to &gt; 8 yrs (54.9M VND)</div><div class="s">ITviec IT Salary Report 2025-26, n = 1,839</div></div>
+  </div>
+  <div class="table-wrap"><table>
+    <tr><th>Pain point</th><th>Who feels it</th><th>Evidence</th></tr>
+    <tr><td><b>P1 · "What does the market actually want?"</b> Job posts list long, inflated stacks; nobody shows what is <i>commonly</i> required for a role, level and city.</td><td>Students, freshers</td><td>Only 9.4% of dev posts are open to &lt; 1 yr experience; around 50,000 IT graduates a year, about 30% considered job-ready (Viet Nam News, 2025).</td></tr>
+    <tr><td><b>P2 · "What am I worth, and what would raise it?"</b> Salaries are hidden or vague; reports are yearly PDFs by role, not by skill.</td><td>Juniors, mid-level switchers</td><td>56.9% of dev posts hide the salary; compensation transparency is the most cited reason to switch jobs (internal research digest, to validate).</td></tr>
+    <tr><td><b>P3 · "Why does nobody reply to my CV?"</b> CVs list tutorial projects and keywords that don't match real posts; AI rewriters invent experience.</td><td>All levels</td><td>Mass CV sending ("rải CV") and ChatGPT keyword-stuffing are the common workarounds (developer community research digest).</td></tr>
+    <tr><td><b>P4 · "What should I learn next, in what order?"</b> Static roadmaps ignore the local market and the user's time budget.</td><td>Freshers, career switchers</td><td>The shortage of 150k–200k developers a year since 2023 coexists with unemployed graduates: a skill-matching problem, not a headcount problem.</td></tr>
+  </table></div>
+  <p class="small muted">Market-level figures from secondary press coverage and internal AI-generated research digests are marked as such and will be re-verified before the defense.</p>
+</section>
+
+<!-- ───────────── 3. EXISTING SOLUTIONS ───────────── -->
+<section class="pb">
+  <h2><span class="num">03</span> Existing solutions &amp; gap</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Product</th><th class="c">Market data for candidates</th><th class="c">Skill gap vs. real VN posts</th><th class="c">Personal roadmap</th><th class="c">CV tailoring grounded in market data</th><th class="c">Provenance on numbers</th></tr>
+    <tr><td><b>ITviec</b> (job board + yearly salary report)</td><td class="c part">yearly PDF</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td><td class="c part">report-level</td></tr>
+    <tr><td><b>TopCV</b> (CV builder, Toppy AI scoring)</td><td class="c no">—</td><td class="c part">generic</td><td class="c no">—</td><td class="c part">generic</td><td class="c no">—</td></tr>
+    <tr><td><b>TopDev</b> (job board + yearly market report)</td><td class="c part">yearly PDF</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td><td class="c part">report-level</td></tr>
+    <tr><td><b>LinkedIn Premium</b> (global, $39.99/mo)</td><td class="c part">global</td><td class="c part">global</td><td class="c no">—</td><td class="c part">global</td><td class="c no">—</td></tr>
+    <tr><td><b>roadmap.sh / CareerViet CareerMap</b></td><td class="c no">—</td><td class="c no">—</td><td class="c part">static</td><td class="c no">—</td><td class="c no">—</td></tr>
+    <tr><td><b>ChatGPT / generic AI CV tools</b></td><td class="c no">—</td><td class="c no">—</td><td class="c part">generic</td><td class="c part">no grounding</td><td class="c no">—</td></tr>
+    <tr><td><b>"AI Job Market Consultant"</b> (academic prototype, arXiv 2511.14767: ReAct agent over 3,745 VN IT posts)</td><td class="c yes">✓</td><td class="c part">partial</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td></tr>
+    <tr style="background:var(--primary-soft)"><td><b>SkillNexus</b></td><td class="c yes">✓ live, sliceable</td><td class="c yes">✓</td><td class="c yes">✓ time-budgeted</td><td class="c yes">✓ + claim check</td><td class="c yes">✓ every number</td></tr>
+  </table></div>
+  <div class="callout blue"><b>Where SkillNexus fits:</b> no Vietnamese product links <i>market evidence</i> → <i>personal gap</i> → <i>plan</i> → <i>CV</i> on one shared, traceable dataset. Our edge over the closest academic work is time-aware data with provenance, salary modelling per skill, and the end-to-end personal chain.</div>
+  <p class="small muted">Competitor capabilities are based on public desk research (Oct 2026) and will be re-checked before the defense.</p>
+</section>
+
+<!-- ───────────── 4. SOLUTION ───────────── -->
+<section class="pb">
+  <h2><span class="num">04</span> Proposed solution</h2>
+  <p>Four modules form one user journey. Each module reads from the same gold tables, so the market numbers a user sees in module 1 are the same ones that rank their gaps in module 3.</p>
+  <div class="modules">
+    <div class="module"><h4>M1 · Market Pulse</h4><div class="q">"What does the market want?"</div>
+      <ul><li>Skill demand by role × level × city</li><li>Skill bundles (co-occurrence graph)</li><li><b>Job-post inflation index</b></li><li>Salary transparency index</li><li>Ask-the-market agent with citations</li></ul></div>
+    <div class="module"><h4>M2 · Trends &amp; Salary</h4><div class="q">"What is rising? What am I worth?"</div>
+      <ul><li>Digitized annual reports → momentum (rising / flat / falling)</li><li>Salary range for a profile</li><li><b>Salary premium per skill</b> (with CI)</li><li>Real vs nominal wages (CPI)</li></ul></div>
+    <div class="module"><h4>M3 · My Gap &amp; Plan</h4><div class="q">"How far am I, and what next?"</div>
+      <ul><li>Market-coverage score of my CV</li><li>Ranked missing skills</li><li>Ordered roadmap within my hours per week</li><li>Capstone project + free resources</li></ul></div>
+    <div class="module"><h4>M4 · My CV</h4><div class="q">"How do I present it for this post?"</div>
+      <ul><li>CV tailored to a specific post</li><li>Batch tailoring for saved posts</li><li><b>Claim check</b>: nothing the CV can't back up</li><li>Diff view with reasons</li></ul></div>
+  </div>
+  <h3>Design principles</h3>
+  <ol>
+    <li><b>Math computes, the LLM narrates.</b> Every number comes from SQL, a graph query or a model; the LLM explains it and writes text.</li>
+    <li><b>Provenance on every number:</b> source · period · sample size · confidence. Values with n &lt; 30 are hidden by default.</li>
+    <li><b>No fake trends.</b> Trend lines only connect points from the same source series; no numeric forecasts in the MVP.</li>
+    <li><b>Honest scores.</b> "Covers 62% of skill demand across 412 Junior Backend posts", never "62% chance of being hired".</li>
+    <li><b>Privacy first.</b> CVs are processed by a local LLM only and never mixed into shared market data.</li>
+  </ol>
+</section>
+
+<!-- ───────────── 5. DATA STRATEGY ───────────── -->
+<section>
+  <h2><span class="num">05</span> Data strategy</h2>
+  <p>We start with backfill and published reports, then add a <b>light, rule-respecting live feed</b>: job sitemaps, which the sites publish for crawlers, plus fact extraction from new job pages once the team signs off on the sites' terms.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Source</th><th>What it gives</th><th>Time axis</th><th>Role in SkillNexus</th></tr>
+    <tr><td><b>Job sitemaps</b>: ITviec (~640 live IT posts), TopDev (~2,780 mixed)</td><td>Job URLs, titles from URL slugs</td><td>Daily snapshots → first-seen / last-seen</td><td>Dated posting counts; feeds detail extraction <span class="pill p-core">week 1</span></td></tr>
+    <tr><td><b>Job detail pages</b> (new posts only, rate-limited)</td><td>Skills, level, experience, salary, city (facts only)</td><td>Daily</td><td>Main live corpus, est. 1.5k–3k IT posts by week 8 <span class="pill p-stretch">gated</span></td></tr>
+    <tr><td><b>VietJobs</b> (HF, LREC 2026)</td><td>~794 software/data posts; 342 with salary</td><td>One snapshot (Jul 2025)</td><td>Seed for the skill taxonomy, baseline point, salary model data</td></tr>
+    <tr><td><b>ITviec salary reports</b> 2022-23 → 2025-26</td><td>Survey salaries by role × experience</td><td>4 yearly points</td><td>Salary truth + momentum</td></tr>
+    <tr><td><b>TopDev market reports</b> 2021 → 2024-25</td><td>Market size, popular tech, demand</td><td>Yearly</td><td>Long-range context + momentum</td></tr>
+    <tr><td><b>Stack Overflow Developer Survey</b> (ODbL)</td><td>Global tech usage and pay</td><td>Yearly since 2011</td><td>Global baseline</td></tr>
+    <tr><td><b>User-contributed posts</b> (opt-in)</td><td>Posts users paste for tailoring</td><td>Live</td><td>Data flywheel without crawling</td></tr>
+    <tr><td><b>World Bank / GSO</b></td><td>CPI, USD↔VND</td><td>Monthly</td><td>Real-wage adjustment</td></tr>
+  </table></div>
+  <div class="callout"><b>Key research finding:</b> VietJobs is often described as "48k IT jobs", but it contains only <b>1,906</b> IT-category rows and about <b>794</b> real software/data posts. That is enough for a seed set and a baseline, not for role × level × city statistics. So the light live feed is on the <b>critical path</b>, and the job-detail fact extraction depends on a terms-of-use sign-off (gate G1, end of week 1). If G1 is refused, we fall back to user-contributed posts plus an optional licensed API (jobspipe.dev, ≈ $20/month) and narrow the scope of market statistics.</div>
+</section>
+
+<!-- ───────────── 6. ARCHITECTURE ───────────── -->
+<section class="pb">
+  <h2><span class="num">06</span> System architecture</h2>
+  <div class="arch">
+    <div class="tier"><div class="t">Sources</div>
+      <div class="boxes"><span class="box">Job sitemaps</span><span class="box">Job pages (gated)</span><span class="box">VietJobs</span><span class="box">ITviec / TopDev reports</span><span class="box">SO survey</span><span class="box">User-contributed posts</span><span class="box">CPI / FX</span></div></div>
+    <div class="down">▼</div>
+    <div class="tier"><div class="t">Data platform · orchestrated by Airflow</div>
+      <div class="boxes">
+        <span class="box"><b>Bronze</b> immutable files + manifests</span><span class="flow">→</span>
+        <span class="box"><b>Extract</b> rules + local LLM (JSON)</span><span class="flow">→</span>
+        <span class="box"><b>Normalize</b> skill taxonomy, review queue</span><span class="flow">→</span>
+        <span class="box db"><b>Silver</b> PostgreSQL</span><span class="flow">→</span>
+        <span class="box db"><b>Gold</b> dbt marts + tests</span><span class="flow">→</span>
+        <span class="box db"><b>Neo4j</b> derived skill graph</span>
+      </div></div>
+    <div class="down">▼</div>
+    <div class="tier"><div class="t">Analytics &amp; AI layer</div>
+      <div class="boxes">
+        <span class="box"><b>DS models</b> lift/PMI · inflation index · salary regression · momentum · CPI</span>
+        <span class="box ai"><b>LangGraph workflow</b> CV → coverage → gaps → roadmap → tailor → claim check</span>
+        <span class="box ai"><b>Market agent</b> typed SQL / Cypher tools, citations</span>
+        <span class="box ai"><b>Ollama</b> local LLM + bge-m3</span>
+      </div></div>
+    <div class="down">▼</div>
+    <div class="tier"><div class="t">Experience · FastAPI + React</div>
+      <div class="boxes"><span class="box ui">Market Pulse</span><span class="box ui">Trends &amp; Salary</span><span class="box ui">My Gap &amp; Plan</span><span class="box ui">My CV</span><span class="box ui">Ask</span><span class="box">Freshness badge on every view</span></div></div>
+  </div>
+  <h3>Technology stack</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Layer</th><th>Choice</th><th>Why</th></tr>
+    <tr><td>Orchestration</td><td>Apache Airflow (LocalExecutor)</td><td>Standard DE orchestrator; retries, backfills, human-verification gates</td></tr>
+    <tr><td>Storage</td><td>Local bronze files · PostgreSQL 16 (silver/gold/app) · Neo4j 5 Community (derived)</td><td>SQL for time-window analytics; graph only for bundles and learning paths</td></tr>
+    <tr><td>Transformation &amp; quality</td><td>dbt-core + dbt tests</td><td>Lineage, tests, documentation</td></tr>
+    <tr><td>Data science</td><td>pandas/polars, statsmodels, scikit-learn, Jupyter</td><td>Regression with confidence intervals; EDA as deliverables</td></tr>
+    <tr><td>LLM &amp; embeddings</td><td>Ollama; model chosen by benchmark (Qwen2.5-7B-Instruct / Qwen3-8B / SEA-LION-8B); bge-m3</td><td>Local for privacy and zero API cost; multilingual for Vietnamese</td></tr>
+    <tr><td>AI orchestration</td><td>LangGraph: one deterministic workflow + one tool-using agent</td><td>Testable and reliable on 7–8B models</td></tr>
+    <tr><td>Parsing</td><td>Docling (CVs, report tables)</td><td>Layout-aware PDF tables</td></tr>
+    <tr><td>App</td><td>FastAPI · React + TypeScript + Tailwind</td><td>Already scaffolded in the repo</td></tr>
+  </table></div>
+  <p class="small muted">Full design: <code>architecture-overview.md</code> (data model, DAGs, agent guardrails, ADRs). Removed from the earlier draft: MinIO (community edition retired in 2025), Redis, Kafka/CDC, and four autonomous agents.</p>
+</section>
+
+<!-- ───────────── 7. SCOPE ───────────── -->
+<section>
+  <h2><span class="num">07</span> Scope</h2>
+  <div class="two">
+    <div>
+      <h3><span class="pill p-core">IN · MVP</span></h3>
+      <ul>
+        <li>Daily pipeline: sitemaps → job facts → silver → gold → graph</li>
+        <li>Backfill: VietJobs, 4 ITviec reports, TopDev reports, SO survey, CPI/FX</li>
+        <li>M1: demand, bundles, inflation index, transparency, market agent</li>
+        <li>M2: report momentum, salary range &amp; skill premium, real wages</li>
+        <li>M3: coverage score, ranked gaps, time-budgeted roadmap</li>
+        <li>M4: JD-tailored CV with claim check (+ batch)</li>
+        <li>Evaluation harness with 4 gold sets</li>
+        <li>PDPL controls: consent, local processing, deletion</li>
+      </ul>
+    </div>
+    <div>
+      <h3><span class="pill p-stretch">STRETCH</span></h3>
+      <ul>
+        <li>Job-post decoder (must-have vs nice-to-have, red flags)</li>
+        <li>Emerging-skill detector</li>
+        <li>Hidden-salary imputation vs. the VietJobs paper baseline</li>
+        <li>Weekly market newsletter; curriculum-gap report (B2B)</li>
+      </ul>
+      <h3><span class="pill p-out">OUT</span></h3>
+      <ul>
+        <li>Numeric forecasts (need ≥ 12 monthly points)</li>
+        <li>Ghost-job detection (needs months of sightings)</li>
+        <li>Company reviews / OT culture (legal risk)</li>
+        <li>Auto-applying to jobs (terms-of-use and licensing risk)</li>
+        <li>Mock-interview agent, payments, mobile app</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── 8. TEAM ───────────── -->
+<section class="pb">
+  <h2><span class="num">08</span> Team roles &amp; work division</h2>
+  <div class="table-wrap"><table>
+    <tr><th style="width:24%">Member</th><th>Owns</th><th style="width:28%">Learns</th></tr>
+    <tr><td><span class="pill p-m1">Member 1</span><br><b>Data Engineer</b><br>[Name]</td>
+      <td>Docker/infra and DB roles · Airflow DAGs for all sources · sitemap snapshotter and polite detail fetcher · bronze/silver layers · dbt gold marts and data tests · freshness API · read-only views for the agent</td>
+      <td>Orchestration, medallion modelling, idempotent ingestion, data quality, dbt</td></tr>
+    <tr><td><span class="pill p-m2">Member 2</span><br><b>Data Scientist &amp; Knowledge Graph</b><br>[Name]</td>
+      <td>Skill taxonomy and entity resolution · LLM extraction prompts and extraction evals · report digitization with human verification · analytics models (co-occurrence, inflation index, salary regression, momentum, CPI) · Neo4j projection and Cypher templates · EDA notebooks</td>
+      <td>Entity resolution, statistical modelling with uncertainty, graph analytics, LLM-in-ETL</td></tr>
+    <tr><td><span class="pill p-m3">Member 3</span><br><b>Applied AI &amp; Full-stack</b><br>[Name]</td>
+      <td>CV parsing · LangGraph personal workflow (coverage, gaps, roadmap, tailoring, claim check) · ask-the-market agent and guardrails · model benchmark · FastAPI endpoints · React UI · AI evals</td>
+      <td>Agent design, tool use, guardrails, evaluation, product UI</td></tr>
+  </table></div>
+  <h3>Responsibility matrix</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Workstream</th><th class="c">M1 DE</th><th class="c">M2 DS/KG</th><th class="c">M3 AI/App</th></tr>
+    <tr><td>Infrastructure &amp; ingestion</td><td class="c"><b>R</b></td><td class="c">C</td><td class="c">I</td></tr>
+    <tr><td>Silver / gold / data tests</td><td class="c"><b>R</b></td><td class="c">C</td><td class="c">I</td></tr>
+    <tr><td>Taxonomy, extraction, report digitization</td><td class="c">C</td><td class="c"><b>R</b></td><td class="c">I</td></tr>
+    <tr><td>Analytics models &amp; graph</td><td class="c">C</td><td class="c"><b>R</b></td><td class="c">C</td></tr>
+    <tr><td>CV workflow, roadmap, tailoring</td><td class="c">I</td><td class="c">C</td><td class="c"><b>R</b></td></tr>
+    <tr><td>Market agent</td><td class="c">C</td><td class="c">C</td><td class="c"><b>R</b></td></tr>
+    <tr><td>API &amp; UI</td><td class="c">I</td><td class="c">I</td><td class="c"><b>R</b></td></tr>
+    <tr><td>Evaluation &amp; gold sets</td><td class="c">C</td><td class="c"><b>R</b> data</td><td class="c"><b>R</b> AI</td></tr>
+    <tr><td>Report, slides, demo</td><td class="c"><b>R</b></td><td class="c"><b>R</b></td><td class="c"><b>R</b></td></tr>
+  </table></div>
+  <p class="small muted">R = responsible · C = consulted · I = informed. Shared data contracts (Pydantic schemas in <code>contracts/</code>) are agreed in week 1, so all three members can build in parallel against mock data.</p>
+</section>
+
+<!-- ───────────── 9. TIMELINE ───────────── -->
+<section class="pb">
+  <h2><span class="num">09</span> Timeline (8 weeks)</h2>
+  <div class="gantt">
+    <div class="g-head" style="text-align:left">Workstream</div>
+    <div class="g-head">W1<span class="d">26 Oct</span></div><div class="g-head">W2<span class="d">2 Nov</span></div><div class="g-head">W3<span class="d">9 Nov</span></div><div class="g-head">W4<span class="d">16 Nov</span></div><div class="g-head">W5<span class="d">23 Nov</span></div><div class="g-head">W6<span class="d">30 Nov</span></div><div class="g-head">W7<span class="d">7 Dec</span></div><div class="g-head">W8<span class="d">14 Dec</span></div>
+
+    <div class="g-sec" style="color:var(--m1)">MEMBER 1 · DATA ENGINEER</div>
+    <div class="g-label">Infra, bronze, sitemap snapshotter</div><div class="g-bar g-m1" style="grid-column:2 / 3">setup</div><div style="grid-column:3 / 10"></div>
+    <div class="g-label">Backfill → silver (VietJobs, SO, CPI)</div><div class="g-bar g-m1" style="grid-column:2 / 4">backfill</div><div style="grid-column:4 / 10"></div>
+    <div class="g-label">Detail extractor + user-post ingest</div><div style="grid-column:2 / 4"></div><div class="g-bar g-m1" style="grid-column:4 / 5">gated by G1</div><div style="grid-column:5 / 10"></div>
+    <div class="g-label">dbt gold + tests + observations</div><div style="grid-column:2 / 4"></div><div class="g-bar g-m1" style="grid-column:4 / 6">gold layer</div><div style="grid-column:6 / 10"></div>
+    <div class="g-label">Scheduling, freshness, agent views</div><div style="grid-column:2 / 6"></div><div class="g-bar g-m1" style="grid-column:6 / 8">ops + views</div><div style="grid-column:8 / 10"></div>
+    <div class="g-label">End-to-end runs, hardening</div><div style="grid-column:2 / 8"></div><div class="g-bar g-m1" style="grid-column:8 / 9">E2E</div><div style="grid-column:9 / 10"></div>
+
+    <div class="g-sec" style="color:var(--m2)">MEMBER 2 · DATA SCIENTIST &amp; KNOWLEDGE GRAPH</div>
+    <div class="g-label">Taxonomy v1 + 50-post gold set</div><div class="g-bar g-m2" style="grid-column:2 / 3">taxonomy</div><div style="grid-column:3 / 10"></div>
+    <div class="g-label">Report digitization + normalizer v2</div><div style="grid-column:2 / 3"></div><div class="g-bar g-m2" style="grid-column:3 / 4">reports</div><div style="grid-column:4 / 10"></div>
+    <div class="g-label">Demand, bundles, inflation + EDA</div><div style="grid-column:2 / 4"></div><div class="g-bar g-m2" style="grid-column:4 / 5">marts</div><div style="grid-column:5 / 10"></div>
+    <div class="g-label">Salary models, momentum, CPI, Neo4j</div><div style="grid-column:2 / 5"></div><div class="g-bar g-m2" style="grid-column:5 / 6">models + graph</div><div style="grid-column:6 / 10"></div>
+    <div class="g-label">Extraction eval, Q&amp;A gold set, stretch</div><div style="grid-column:2 / 6"></div><div class="g-bar g-m2" style="grid-column:6 / 9">eval + stretch</div><div style="grid-column:9 / 10"></div>
+
+    <div class="g-sec" style="color:var(--m3)">MEMBER 3 · APPLIED AI &amp; FULL-STACK</div>
+    <div class="g-label">CV parsing spike, model benchmark</div><div class="g-bar g-m3" style="grid-column:2 / 4">benchmark</div><div style="grid-column:4 / 10"></div>
+    <div class="g-label">API skeleton, real CV upload, coverage</div><div style="grid-column:2 / 3"></div><div class="g-bar g-m3" style="grid-column:3 / 5">API + coverage</div><div style="grid-column:5 / 10"></div>
+    <div class="g-label">Roadmap workflow</div><div style="grid-column:2 / 5"></div><div class="g-bar g-m3" style="grid-column:5 / 6">roadmap</div><div style="grid-column:6 / 10"></div>
+    <div class="g-label">Tailoring + claim check</div><div style="grid-column:2 / 6"></div><div class="g-bar g-m3" style="grid-column:6 / 7">tailor</div><div style="grid-column:7 / 10"></div>
+    <div class="g-label">Market agent + UI polish + AI evals</div><div style="grid-column:2 / 7"></div><div class="g-bar g-m3" style="grid-column:7 / 9">agent + polish</div><div style="grid-column:9 / 10"></div>
+
+    <div class="g-sec" style="color:var(--all)">WHOLE TEAM</div>
+    <div class="g-label">Contracts, demo script, report, defense</div><div class="g-bar g-all" style="grid-column:2 / 3">contracts</div><div style="grid-column:3 / 9"></div><div class="g-bar g-all" style="grid-column:9 / 10">defense</div>
+    <div class="g-label"><b>Milestones</b></div><div class="g-ms">G1</div><div></div><div></div><div class="g-ms">MS1</div><div></div><div class="g-ms">MS2</div><div class="g-ms">MS3</div><div class="g-ms">DEMO</div>
+  </div>
+  <div class="table-wrap"><table>
+    <tr><th>Milestone</th><th>End of</th><th>Exit criteria</th></tr>
+    <tr><td><b>G1 · Data audit &amp; go/no-go</b></td><td>W1</td><td>Sitemap snapshots running daily; VietJobs profiled; report PDFs collected; <b>terms-of-use decision for detail extraction</b>; model shortlist</td></tr>
+    <tr><td><b>MS1 · Market data live</b></td><td>W4</td><td>Gold marts rebuilt daily from one command; demand, bundles and inflation shown in the UI with provenance; salary models and momentum computed</td></tr>
+    <tr><td><b>MS2 · Feature complete</b></td><td>W6</td><td>CV → coverage → roadmap → tailored CV works end to end; claim check passes on gold CVs</td></tr>
+    <tr><td><b>MS3 · Evaluated</b></td><td>W7</td><td>All four gold-set evaluations reported; market agent ≥ 80% accurate; pipeline success ≥ 95% over the last 7 days</td></tr>
+    <tr><td><b>DEMO · Defense</b></td><td>W8</td><td>Demo script rehearsed, report and slides done, ~6 weeks of our own dated posting data</td></tr>
+  </table></div>
+  <p class="small muted">Dates assume a start on Monday 26 October 2026 and shift with the approval date. Week 8 is deliberately kept as buffer.</p>
+</section>
+
+<!-- ───────────── 10. SUCCESS ───────────── -->
+<section>
+  <h2><span class="num">10</span> Evaluation &amp; success criteria</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Area</th><th>Metric</th><th>Target</th></tr>
+    <tr><td>Data volume</td><td>Dated IT postings with extracted skills</td><td>≥ 1,500 (if G1 approved) · otherwise ≥ 800 + reports</td></tr>
+    <tr><td>Pipeline reliability</td><td>Daily DAG success rate (last 7 days) · dbt tests</td><td>≥ 95% · 100% passing</td></tr>
+    <tr><td>Normalization</td><td>Skill mentions resolved automatically</td><td>≥ 90%</td></tr>
+    <tr><td>Extraction quality</td><td>Skill F1 on a 50-post hand-labelled gold set · field accuracy</td><td>≥ 0.85 · ≥ 0.90</td></tr>
+    <tr><td>CV parsing</td><td>Skill F1 on 10 anonymized CVs</td><td>≥ 0.85</td></tr>
+    <tr><td>Trustworthiness</td><td>Fabricated claims in tailored CVs (10 CVs × 2 posts)</td><td><b>0</b></td></tr>
+    <tr><td>Market agent</td><td>Accuracy on 30 questions with SQL-computed answers · answers with citations</td><td>≥ 80% · 100%</td></tr>
+    <tr><td>Salary model</td><td>Out-of-sample RMSE / R², compared with the VietJobs paper's published LLM baselines (best R² = 0.16)</td><td>Reported transparently; aim to beat the baseline</td></tr>
+    <tr><td>Experience</td><td>CV upload → roadmap, on a 16 GB laptop</td><td>≤ 60 s, streamed</td></tr>
+  </table></div>
+</section>
+
+<!-- ───────────── 11. RISKS ───────────── -->
+<section class="pb">
+  <h2><span class="num">11</span> Risks &amp; mitigations</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Risk</th><th>Likelihood / impact</th><th>Mitigation</th></tr>
+    <tr><td>Terms-of-use sign-off for job detail pages is refused</td><td>Medium / High</td><td>Sitemap-only statistics; user-contributed posts; optional licensed API; narrower market scope (decided at G1)</td></tr>
+    <tr><td>Too little posting data for fine segments</td><td>Medium / Medium</td><td>n ≥ 30 rule, coarser segments (role × level), confidence labels instead of hidden gaps</td></tr>
+    <tr><td>Local 7–8B model too weak or slow for Vietnamese extraction</td><td>Medium / High</td><td>Rules first (VietJobs skills are already structured); benchmark in W2; overnight batches; optional cloud batch for <i>public</i> data only</td></tr>
+    <tr><td>Annual reports change categories between editions</td><td>High / Medium</td><td>Per-edition mapping table; compare only within one publisher; human-verified cells</td></tr>
+    <tr><td>LLM rewrites invent experience</td><td>Medium / High</td><td>Claim check, diff view, "to learn" list; zero-fabrication target tested on gold CVs</td></tr>
+    <tr><td>One laptop runs out of RAM</td><td>Medium / Medium</td><td>MinIO/Redis removed; Neo4j heap reduced; heavy jobs scheduled apart (~10–12 GB total)</td></tr>
+    <tr><td>Scope creep across 59 brainstormed features</td><td>High / Medium</td><td>Frozen MVP list; documented minimum cut of 8 features; week 8 kept as buffer</td></tr>
+  </table></div>
+</section>
+
+<!-- ───────────── 12. LEGAL ───────────── -->
+<section>
+  <h2><span class="num">12</span> Legal, privacy &amp; ethics</h2>
+  <ul>
+    <li><b>Personal data (PDPL, Law 91/2025/QH15, in force since 1 Jan 2026):</b> explicit, unbundled consent per upload; CVs processed only by a local LLM, so there's no cross-border transfer; raw files deleted within 24 h; one-click full deletion; user data never enters the shared market dataset.</li>
+    <li><b>Third-party job content:</b> the sites' <code>robots.txt</code> files allow job pages, and we only fetch what they permit, at a low rate with an honest user-agent. We store <b>extracted facts, not copied text</b>, and purge raw pages after 30 days. Use is non-commercial and academic; a commercial launch would require partnerships or a licensed feed. TopDev's terms forbid copying and redistributing content; ITviec's terms are still to be reviewed (gate G1).</li>
+    <li><b>Reports and open data:</b> every figure taken from ITviec or TopDev reports is cited per edition. Stack Overflow data follows ODbL attribution. The VietJobs dataset license is to be confirmed.</li>
+    <li><b>Employment-service licensing:</b> SkillNexus does not place candidates or forward applications, so it stays an analytics tool, not a licensed recruitment intermediary.</li>
+    <li><b>Fairness &amp; honesty:</b> no hiring-probability claims; confidence labels; recommendations never encourage misrepresentation.</li>
+  </ul>
+</section>
+
+<!-- ───────────── 13. BUDGET & BUSINESS ───────────── -->
+<section class="pb">
+  <h2><span class="num">13</span> Budget &amp; business value</h2>
+  <div class="two">
+    <div>
+      <h3>Project budget</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Item</th><th>Cost</th></tr>
+        <tr><td>Infrastructure (local Docker on team laptops)</td><td>0 VND</td></tr>
+        <tr><td>LLM inference (Ollama, local)</td><td>0 VND</td></tr>
+        <tr><td>Data: open datasets, reports, sitemaps</td><td>0 VND</td></tr>
+        <tr><td><i>Optional:</i> jobspipe.dev, 1 month</td><td>≈ $20</td></tr>
+        <tr><td><i>Optional:</i> cloud batch LLM for public data</td><td>&lt; $5</td></tr>
+        <tr><td><b>Required total</b></td><td><b>0 VND</b> (≤ ~$25 optional)</td></tr>
+      </table></div>
+    </div>
+    <div>
+      <h3>Business model (post-MVP)</h3>
+      <ul>
+        <li><b>Free:</b> Market Pulse and limited market questions, which also drive acquisition and community sharing.</li>
+        <li><b>Pro (~79,000 VND/month):</b> roadmap, unlimited and batch CV tailoring, salary-premium detail. Priced inside the $3–8/month range Vietnamese developers report being willing to pay (to validate).</li>
+        <li><b>B2B:</b> curriculum-vs-market gap reports for universities and training centers, built from the same gold tables.</li>
+        <li><b>Growth:</b> an auto-generated weekly market newsletter for developer communities.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Learning outcomes</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Field</th><th>What the team will be able to show</th></tr>
+    <tr><td>Data engineering</td><td>Scheduled, idempotent multi-source ingestion; medallion warehouse; dbt models and tests; data contracts; freshness monitoring</td></tr>
+    <tr><td>Data science</td><td>Entity resolution; co-occurrence lift/PMI; a data-driven inflation index; salary regression with confidence intervals; honest trend handling across mixed granularities</td></tr>
+    <tr><td>Applied AI</td><td>LLM-in-ETL with validation; agent workflow with guardrails; tool-using agent with citations; offline evaluation with gold sets; local-LLM model selection</td></tr>
+  </table></div>
+</section>
+
+<!-- ───────────── 14. DECISIONS ───────────── -->
+<section>
+  <h2><span class="num">14</span> Decisions &amp; inputs needed</h2>
+  <div class="table-wrap"><table>
+    <tr><th>#</th><th>Decision / input</th><th>Needed by</th><th>From</th></tr>
+    <tr><td>1</td><td>Approve the terms-of-use approach for job detail extraction (gate G1)</td><td>End of W1</td><td>Team + mentor</td></tr>
+    <tr><td>2</td><td>Download report PDFs that sit behind sign-up forms (ITviec / TopDev)</td><td>W1</td><td>Any member</td></tr>
+    <tr><td>3</td><td>Hardware per member (RAM / GPU), which fixes the local model choice</td><td>W1</td><td>All members</td></tr>
+    <tr><td>4</td><td>Confirm the VietJobs dataset license</td><td>W1</td><td>Member 2</td></tr>
+    <tr><td>5</td><td>Volunteers for 10 anonymized CVs (consent forms)</td><td>W2</td><td>Member 3</td></tr>
+    <tr><td>6</td><td>Optional: jobspipe.dev sign-up to test Vietnam coverage</td><td>W2</td><td>Member 1</td></tr>
+    <tr><td>7</td><td>Official start date, team names, grading-rubric weights</td><td>Before W1</td><td>Team lead + mentor</td></tr>
+  </table></div>
+</section>
+
+<!-- ───────────── 15. REFERENCES ───────────── -->
+<section>
+  <h2><span class="num">15</span> References</h2>
+  <ol class="refs">
+    <li>Pham Dinh H., Nguyen Huy H., El-Haj M. <i>VietJobs: A Vietnamese Job Advertisement Dataset.</i> LREC 2026. <a href="https://arxiv.org/abs/2603.05262">arXiv:2603.05262</a> · dataset <a href="https://huggingface.co/datasets/dinhieufam/VietJobs">huggingface.co/datasets/dinhieufam/VietJobs</a></li>
+    <li>ITviec. <i>Vietnam IT Salary &amp; Recruitment Market Report</i>, editions 2022-23, 2023-24, 2024-25, 2025-26. <a href="https://itviec.com/report/vietnam-it-salary-and-recruitment-market">itviec.com/report</a></li>
+    <li>TopDev. <i>Vietnam IT Market / Tech Talents Report</i>, 2021–2024/25. <a href="https://topdev.vn/vietnam-tech-talents-report-topdev-2024">topdev.vn</a></li>
+    <li>Nguyen M.-T. et al. <i>An LLM-Powered Agent for Real-Time Analysis of the Vietnamese IT Job Market.</i> ACOMPA 2025. <a href="https://arxiv.org/abs/2511.14767">arXiv:2511.14767</a></li>
+    <li>Stack Overflow. <i>Developer Survey</i> (ODbL 1.0). <a href="https://survey.stackoverflow.co/">survey.stackoverflow.co</a></li>
+    <li>Viet Nam News. <i>Innovation push threatened by workforce gaps</i> (2025). <a href="https://vietnamnews.vn/society/1717710/innovation-push-threatened-by-workforce-gaps.html">vietnamnews.vn</a></li>
+    <li>Law on Personal Data Protection No. 91/2025/QH15 (effective 1 Jan 2026), summary: <a href="https://www.tilleke.com/insights/vietnams-new-personal-data-protection-law-a-closer-look/2/">Tilleke &amp; Gibbins</a></li>
+    <li>jobspipe.dev, job and technology data API. <a href="https://jobspipe.dev">jobspipe.dev</a></li>
+    <li>MinIO community edition status: <a href="https://www.chainguard.dev/unchained/secure-and-free-minio-chainguard-containers">Chainguard (2025)</a></li>
+    <li>SkillNexus internal: feature catalog, feature analysis, architecture overview, research digests (<code>_bmad-output/</code>).</li>
+  </ol>
+</section>
+
+<footer>SkillNexus · Project proposal draft 1 · 22 October 2026</footer>
+</main>
+</body>
+</html>
